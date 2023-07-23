@@ -1,0 +1,13 @@
+.grid-area {
+  margin-top: 20px;
+  grid-template-areas:
+    "a a a"
+    "b c c"
+    "b c c";
+}
+
+.image-hover:hover {
+  position: relative;
+  top: 20px;
+  background-color: aqua;
+}

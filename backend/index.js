@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const multer = require("multer"); // Import multer for handling FormData
+const multer = require("multer"); // Imported multer for handling FormData
 
 mongoose
 
@@ -35,6 +35,48 @@ app.post("/add", upload.none(), (req, res) => {
     .catch((error) => {
       console.error("Error creating Cat:", error);
       res.status(500).json({ error: "Failed to create Cat" });
+    });
+});
+
+app.get("/cats", (req, res) => {
+  Cat.find({})
+    .then((cats) => {
+      res.status(200).json(cats);
+    })
+    .catch((error) => {
+      console.error("Error fetching cats:", error);
+      res.status(500).json({ error: "Failed to fetch cats" });
+    });
+});
+
+app.delete("/cats/:id", (req, res) => {
+  const catId = req.params.id;
+  Cat.findByIdAndDelete(catId)
+    .then((deletedCat) => {
+      if (!deletedCat) {
+        return res.status(404).json({ error: "Cat not found" });
+      }
+
+      res.status(200).json(deletedCat);
+    })
+    .catch((error) => {
+      console.log("Error deleting", error);
+      res.status(500).json({ error: "Failed to delete cat" });
+    });
+});
+
+app.get("/cats/search", (req, res) => {
+  const label = req.query.label;
+  Cat.findOne({ label })
+    .then((searchedCat) => {
+      if (searchedCat) {
+        return res.status(200).json(searchedCat);
+      }
+      res.status(404).json({ message: "catnotfound" });
+    })
+    .catch((error) => {
+      console.error("Error searching for cat:", error);
+      res.status(500).json({ error: "Failed to search for cat" });
     });
 });
 

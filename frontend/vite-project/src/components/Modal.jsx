@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 // eslint-disable-next-line react/prop-types
-
 const Modal = ({ showModal, setShowModal }) => {
   const [label, setLabel] = useState("");
   const [imgUrl, setImgUrl] = useState("");
@@ -18,6 +17,12 @@ const Modal = ({ showModal, setShowModal }) => {
     try {
       const response = await axios.post("http://localhost:3000/add", data);
       console.log(response.data, "response");
+      if (response.data) {
+        alert("successfully added the data");
+        setShowModal(!showModal);
+      } else {
+        alert("something went wrong");
+      }
     } catch (error) {
       console.error("Error uploading file: ", error);
     }
@@ -27,7 +32,7 @@ const Modal = ({ showModal, setShowModal }) => {
     <>
       <dialog
         id="dialog"
-        className="flex flex-col border-2 border-[#cec6c658] -500 w-[620px] h-[367px] items-center justify-center mt-6  backdrop:bg-red-500 rounded-xl"
+        className="flex flex-col border-2 z-40 border-[#cec6c658] -500 w-[620px] h-[367px] items-center justify-center mt-6  backdrop:bg-red-500 rounded-xl"
         open
       >
         <p>Add a new photo</p>

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.autofit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-rows: repeat(auto-fit, 260px);
+  grid-auto-flow: dense;
+  gap: 1rem;
+}

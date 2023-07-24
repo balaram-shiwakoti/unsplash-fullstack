@@ -1,6 +1,7 @@
 import { useState } from "react";
 import mainLogo from "../assets/my_unsplash_logo.svg";
 import Modal from "./Modal";
+import SearchBar from "./SearchBar";
 
 const Nav = () => {
   const [showModal, setShowModal] = useState(false);
@@ -8,13 +9,11 @@ const Nav = () => {
   return (
     <>
       <nav className="flex justify-between">
-        <div className="flex gap-6">
+        <div>
           <img src={mainLogo} alt="" />
-          <input
-            className="border-2 py-4 px-2 rounded-xl focus:outline-none"
-            type="text"
-            placeholder="search by name"
-          />
+        </div>
+        <div className="flex gap-6">
+          <SearchBar />
         </div>
         <div>
           <button
